@@ -5,9 +5,9 @@
 
 # i3 rofi lockscreen
 
-A minimal, fullscreen "LOCKED" screen for [i3wm](https://i3wm.org/), built from `rofi`, an i3 binding mode, and `xinput`. While active, the screen dims, the keyboard and mouse are swallowed, and a single key combo (`$mod+p`) brings everything back.
+A minimal, fullscreen "LOCKED" screen for [i3wm](https://i3wm.org/), built from `rofi`, an i3 binding mode, and `xinput`. While active, the screen dims, the keyboard and mouse are swallowed, and a single combo key (`$mod+p`) brings everything back. You can change the binding to your liking. 
 
-> **This is not a security lock.** There is no password. It is a "hands-off" screen for testing, demos, or keeping a cat off the keyboard. If you need real protection, use `i3lock` or your display manager's lock instead.
+> **This is not a security lock.** There is no password. It is a "hands-off" screen for testing, demos, or keeping a cat off the keyboard. If you need real protection, use something else that has sudo. 
 
 ## How it works
 
@@ -120,6 +120,11 @@ Make sure `$mod+p` is not bound anywhere else at the top level, then validate an
 i3 -C -c ~/.config/i3/config
 i3-msg reload
 ```
+or 
+
+```sh
+mod+shift+r
+```
 
 ## Usage
 
@@ -160,3 +165,5 @@ DISPLAY=:0 xinput enable <id>
 **The lock window does not cover the bar:** check that the `for_window` rule matches. Run `xprop WM_CLASS` and click the lock window; the instance name must be `lockscreen`.
 
 **i3 reports a config error after reload:** run `i3 -C -c ~/.config/i3/config` to see the offending line.
+
+If you still have issues, please submit an issue. I will resolve it and get to you in a timely manner. 
