@@ -1,0 +1,29 @@
+#!/bin/sh
+# switch i3 into the "locked" mode (swallows keys)
+i3-msg 'mode "locked"' >/dev/null
+
+# disable all physical pointer devices, remembering their ids
+xinput list | grep 'slave  pointer' | grep -v XTEST \
+  | sed 's/.*id=\([0-9]*\).*/\1/' > /tmp/lock_ptr_ids
+for id in $(cat /tmp/lock_ptr_ids); do xinput disable "$id"; done
+
+# safety net for testing: auto-unlock after 2 minutes
+#( sleep 120; "$HOME/.config/i3/unlock" ) &
+
+OUT=$(xrandr | awk '/ connected/{print $1; exit}')
+xrandr --output "$OUT" --brightness 0.3
+
+rofi -dmenu -normal-window \
+  -mesg "--LOCKED--" \
+  -kb-cancel "" -kb-accept-entry "" \
+  -theme-str '
+    * {
+      font: "BigBlueTermPlusNerdFontMono 20";
+      background-color: #000000;
+      text-color: #DC0153;
+    }
+    window { fullscreen: true; border: 0px; }
+    mainbox { children: [ message ]; }
+    message { padding: 50% 0; }
+    textbox { horizontal-align: 0.5; }
+  ' < /dev/null

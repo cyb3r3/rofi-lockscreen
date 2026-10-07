@@ -1,0 +1,7 @@
+#!/bin/sh
+for id in $(cat /tmp/lock_ptr_ids 2>/dev/null); do xinput enable "$id"; done
+pkill -x rofi
+i3-msg 'mode "default"' >/dev/null
+
+OUT=$(xrandr | awk '/ connected/{print $1; exit}')
+xrandr --output "$OUT" --brightness 1.0
