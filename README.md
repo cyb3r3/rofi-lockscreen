@@ -1,3 +1,3 @@
 # rofi-lockscreen
 
-![lock[lock.gif]]
+![lock](lock.gif)
